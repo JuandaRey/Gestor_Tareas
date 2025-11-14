@@ -1,21 +1,12 @@
-namespace TaskManagerAPI.Models
+namespace TaskManagerAPI.Dtos
 {
-    public class TaskItem
+    public class CreateTaskDto
     {
-        public int Id { get; set; }
-
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-
         public DateTime DueDate { get; set; }
         public string Status { get; set; } = "Pendiente";
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        // Relaciones
         public int StudentId { get; set; }
-        public Student? Student { get; set; }
-
         public int CourseId { get; set; }
-        public Course? Course { get; set; }
     }
 }

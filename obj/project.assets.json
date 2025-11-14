@@ -4926,24 +4926,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\USER\\.nuget\\packages\\": {}
+    "C:\\Users\\EQ01\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\Desktop\\Pitch-Proyecto\\TaskManagerAPI\\TaskManagerAPI.csproj",
+      "projectUniqueName": "C:\\Users\\EQ01\\OneDrive - Tecnologico de Antioquia Institucion Universitaria\\Escritorio\\Pitch-Proyecto\\Pitch-Proyecto\\TaskManagerAPI\\TaskManagerAPI.csproj",
       "projectName": "TaskManagerAPI",
-      "projectPath": "C:\\Users\\USER\\Desktop\\Pitch-Proyecto\\TaskManagerAPI\\TaskManagerAPI.csproj",
-      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USER\\Desktop\\Pitch-Proyecto\\TaskManagerAPI\\obj\\",
+      "projectPath": "C:\\Users\\EQ01\\OneDrive - Tecnologico de Antioquia Institucion Universitaria\\Escritorio\\Pitch-Proyecto\\Pitch-Proyecto\\TaskManagerAPI\\TaskManagerAPI.csproj",
+      "packagesPath": "C:\\Users\\EQ01\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\EQ01\\OneDrive - Tecnologico de Antioquia Institucion Universitaria\\Escritorio\\Pitch-Proyecto\\Pitch-Proyecto\\TaskManagerAPI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\EQ01\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4962,7 +4969,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net9.0": {
@@ -5018,7 +5025,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -5027,7 +5034,7 @@
       "code": "NU1608",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requires MediatR (>= 11.0.0 && < 12.0.0) but version MediatR 13.0.0 was resolved.",
+      "message": "Se detectó una versión del paquete fuera de la restricción de dependencia: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requiere MediatR (>= 11.0.0 && < 12.0.0), pero la versión MediatR 13.0.0 ya se resolvió.",
       "libraryId": "MediatR",
       "targetGraphs": [
         "net9.0"

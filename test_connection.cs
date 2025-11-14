@@ -7,7 +7,7 @@ namespace TaskManagerAPI
     {
         static void Main()
         {
-            string connectionString = "Server=DESKTOP-DO59ACT\\SQLEXPRESS;Database=master;Trusted_Connection=True;TrustServerCertificate=True;";
+            string connectionString = "Server=DESKTOP-OL6HI24\\SQLEXPRESS;Database=TaskManagerDb;Trusted_Connection=True;TrustServerCertificate=True;";
             try
             {
                 using (var connection = new SqlConnection(connectionString))

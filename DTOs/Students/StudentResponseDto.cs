@@ -1,13 +1,13 @@
-namespace Domain.Models
+namespace TaskManagerAPI.Dtos
 {
-    public class Student
+    public class StudentResponseDto
     {
         public int Id { get; set; }
         public string FullName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Career { get; set; } = string.Empty;
 
-        // Relaciones
-        public ICollection<TaskItem>? Tasks { get; set; }
+        public int TotalTasks { get; set; }
+        public List<int> Tasks { get; set; } = new List<int>();
     }
 }

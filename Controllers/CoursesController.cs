@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Persistence;
-using Domain.Models;
+using TaskManagerAPI.Models;
+using TaskManagerAPI.Dtos;
 
 namespace TaskManagerAPI.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CoursesController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -16,59 +17,82 @@ namespace TaskManagerAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Courses
+        // GET: api/courses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        public async Task<ActionResult<IEnumerable<CourseResponseDto>>> GetCourses()
         {
-            return await _context.Courses.ToListAsync();
+            var courses = await _context.Courses
+                .Include(c => c.Tasks)
+                .Select(c => new CourseResponseDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Teacher = c.Teacher,
+                    Tasks = c.Tasks.Select(t => t.Id).ToList()
+                })
+                .ToListAsync();
+
+            return Ok(courses);
         }
 
-        // GET: api/Courses/5
+        // GET: api/courses/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        public async Task<ActionResult<CourseResponseDto>> GetCourse(int id)
+        {
+            var course = await _context.Courses
+                .Include(c => c.Tasks)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (course == null)
+                return NotFound();
+
+            return Ok(new CourseResponseDto
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Teacher = course.Teacher,
+                Tasks = course.Tasks.Select(t => t.Id).ToList()
+            });
+        }
+
+        // POST: api/courses
+        [HttpPost]
+        public async Task<ActionResult<CourseResponseDto>> CreateCourse([FromBody] CreateCourseDto dto)
+        {
+            var course = new Course
+            {
+                Name = dto.Name,
+                Teacher = dto.Teacher
+            };
+
+            _context.Courses.Add(course);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetCourse), new { id = course.Id }, new CourseResponseDto
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Teacher = course.Teacher,
+                Tasks = new List<int>()
+            });
+        }
+
+        // PUT: api/courses/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCourse(int id, [FromBody] UpdateCourseDto dto)
         {
             var course = await _context.Courses.FindAsync(id);
             if (course == null)
                 return NotFound();
 
-            return course;
-        }
+            course.Name = dto.Name;
+            course.Teacher = dto.Teacher;
 
-        // POST: api/Courses
-        [HttpPost]
-        public async Task<ActionResult<Course>> PostCourse(Course course)
-        {
-            _context.Courses.Add(course);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetCourse), new { id = course.Id }, course);
-        }
-
-        // PUT: api/Courses/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCourse(int id, Course course)
-        {
-            if (id != course.Id)
-                return BadRequest();
-
-            _context.Entry(course).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Courses.Any(e => e.Id == id))
-                    return NotFound();
-                else
-                    throw;
-            }
-
             return NoContent();
         }
 
-        // DELETE: api/Courses/5
+        // DELETE: api/courses/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(int id)
         {

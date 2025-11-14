@@ -1,26 +1,35 @@
+using TaskManagerAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using Domain.Models;
-
 namespace Infrastructure.Persistence
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<TaskItem> Tasks { get; set; }
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Course> Courses { get; set; }
-
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        public DbSet<TaskItem> Tasks { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Course> Courses { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(
-                    "Server=localhost\\SQLEXPRESS;Database=TaskManagerDb;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true"
-                );
-            }
+            base.OnModelCreating(modelBuilder);
+
+            // RELACIÓN: Student 1 - N Tasks
+            modelBuilder.Entity<TaskItem>()
+                .HasOne(t => t.Student)
+                .WithMany(s => s.Tasks)
+                .HasForeignKey(t => t.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // RELACIÓN: Course 1 - N Tasks
+            modelBuilder.Entity<TaskItem>()
+                .HasOne(t => t.Course)
+                .WithMany(c => c.Tasks)
+                .HasForeignKey(t => t.CourseId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

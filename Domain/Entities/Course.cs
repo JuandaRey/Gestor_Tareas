@@ -1,4 +1,4 @@
-namespace Domain.Models
+namespace TaskManagerAPI.Models
 {
     public class Course
     {
@@ -6,7 +6,6 @@ namespace Domain.Models
         public string Name { get; set; } = string.Empty;
         public string Teacher { get; set; } = string.Empty;
 
-        // Relaciones
         public ICollection<TaskItem>? Tasks { get; set; }
     }
 }
